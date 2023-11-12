@@ -19,15 +19,15 @@ namespace Business
             return invoices;
         }
 
-        public void InsertarInvoices(Invoice invoice)
+        public void CreateInvoice(Invoice invoice)
         {
             DInvoice data = new DInvoice();
-            data.InsertarInvoices(invoice);
+            data.CreateInvoice(invoice);
         }
-        public void EliminarInvoice(Invoice invoice)
+        public void DeleteInvoice(int id)
         {
             DInvoice data = new DInvoice();
-            data.EliminarInvoices(invoice);
+            data.DeleteInvoice(id);
         }
     }
 }

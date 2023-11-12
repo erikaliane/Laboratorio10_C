@@ -11,7 +11,7 @@ namespace Data
 {
     public class DInvoice
     {
-        public static string connectionString = "Data Source=LAB1504-14\\SQLEXPRESS;Initial Catalog=FacturaDB;User ID=userTecsup;Password=12345678";
+        public static string connectionString = "Data Source=DESKTOP-DE20VUT\\SQLEXPRESS;Initial Catalog=Tecsup;User ID=erika;Password=";
         public List<Invoice> Get()
         {
             List<Invoice> result = new List<Invoice>();
@@ -48,12 +48,12 @@ namespace Data
             }
             return result;
         }
-        public void InsertarInvoices(Invoice invoice)
+        public void CreateInvoice(Invoice invoice)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "InsertarInvoices";
+                string query = "CreateInvoice";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -69,17 +69,19 @@ namespace Data
                 }
             }
         }
-        public void EliminarInvoices(Invoice InvoiceId)
+      
+        public void DeleteInvoice(int id)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "EliminarInvoices";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("DeleteInvoice", connection))
                 {
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Invoice_Id", InvoiceId);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add(new SqlParameter("@invoice_id", SqlDbType.Int));
+                    command.Parameters["@invoice_id"].Value = id;
 
                     command.ExecuteNonQuery();
                 }

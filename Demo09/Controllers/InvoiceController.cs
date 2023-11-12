@@ -23,7 +23,7 @@ namespace Demo09.Controllers
                 Date = x.Date,
                 Total = x.Total,
                 Active = x.Active,
-                IGV = (x.Total*100)/18
+                IGV = (x.Total*18)/100
 
             }).ToList();
 
@@ -59,7 +59,7 @@ namespace Demo09.Controllers
                     Active = true
                 };
 
-                bInvoice.InsertarInvoices(invoice);
+                bInvoice.CreateInvoice(invoice);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -103,17 +103,21 @@ namespace Demo09.Controllers
                 Total = invoice.Total
             };
             return View(model);
+
+
+           
+
         }
 
         // POST: InvoiceController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, InvoiceModel model)
         {
             try
             {
                 BInvoice invoice = new BInvoice();
-                invoice.EliminarInvoice();
+                invoice.DeleteInvoice(id);
 
                 return RedirectToAction(nameof(Index));
             }
